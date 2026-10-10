@@ -1,0 +1,28 @@
+[project]
+name = "ahaapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=6.1.2",
+    "django-filter>=26.2",
+    "djangorestframework>=3.18.3",
+    "djangorestframework-simplejwt>=5.5.1",
+    "drf-spectacular>=0.30.0",
+    "psycopg[binary]>=3.3.6",
+]
+
+[project.scripts]
+ahaapi = "ahaapi:main"
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-django>=4.14.0",
+    "ruff>=0.17.0",
+]
