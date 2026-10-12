@@ -1,0 +1,66 @@
+# uv run python manage.py makemigrations
+# uv run python manage.py migrate
+# uv run python manage.py createsuperuser
+# PowerShell -ExecutionPolicy Bypass -File .\run_development.ps1
+
+@baseUrl = http://127.0.0.1:8000
+@apiPrefix = {{baseUrl}}/ahaapi/v1/dev
+@username = {{$dotenv API_USER}}
+@password = {{$dotenv API_PASS}}
+
+### 1. Health check - public
+GET {{apiPrefix}}/health/
+Accept: application/json
+
+### 2. Public API - no authentication required
+GET {{apiPrefix}}/public/
+Accept: application/json
+
+### 3. Obtain JWT access and refresh tokens
+# Replace @username and @password above with a real Django user's credentials.
+# REST Client stores the response so later requests can read the token fields.
+# @name login
+POST {{apiPrefix}}/auth/token/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+### 4. Protected API - requires authentication
+GET {{apiPrefix}}/protected/
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access}}
+
+### 5. Admin API - requires is_staff=True
+GET {{apiPrefix}}/admin/
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access}}
+
+### 6. Permissions API - returns the current user's groups and permissions
+GET {{apiPrefix}}/permissions/
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access}}
+
+### 7. Log API - emits an INFO log entry
+GET {{apiPrefix}}/log/
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access}}
+
+### 8. Refresh JWT access token
+# This request uses the refresh token from the login response.
+# @name refresh
+POST {{apiPrefix}}/auth/token/refresh/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "refresh": "{{login.response.body.$.refresh}}"
+}
+
+### 9. Protected API - test with refreshed access token
+GET {{apiPrefix}}/protected/
+Accept: application/json
+Authorization: Bearer {{refresh.response.body.$.access}}
