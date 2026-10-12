@@ -13,8 +13,9 @@ dependencies = [
     "psycopg[binary]>=3.3.6",
 ]
 
-[project.scripts]
-ahaapi = "ahaapi:main"
+[tool.uv.build-backend]
+module-name = "ahaapi"
+module-root = "src"
 
 [build-system]
 requires = ["uv_build>=0.12.19,<0.13.0"]
