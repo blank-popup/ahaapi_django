@@ -1,0 +1,4 @@
+{
+    "window.newWindowDimensions": "inherit",
+    "terminal.integrated.scrollback": 99999,
+}

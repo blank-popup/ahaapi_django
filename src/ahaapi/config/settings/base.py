@@ -13,6 +13,16 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 import os
 from pathlib import Path
 
+from ahaapi.util.env.environment import load_environment
+from ahaapi.util.logit.logit import setup_sync_logging
+
+settings_module = os.getenv("DJANGO_SETTINGS_MODULE", "ahaapi.config.settings.development")
+environment = settings_module.rsplit('.', 1)[-1]
+load_environment(environment)
+
+LOGGING_CONFIG = None
+setup_sync_logging()
+
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parents[4]
 

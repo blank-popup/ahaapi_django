@@ -18,6 +18,18 @@ class HealthAPIView(APIView):
     authentication_classes = ()
 
     def get(self, request):
+        logger.debug("Health check debug message.")
+        logger.info("Health check info message.")
+        logger.warning("Health check warning message.")
+        logger.error("Health check error message.")
+        logger.critical("Health check critical message.")
+        try:
+            raise ValueError("Test exception")
+        except Exception:
+            logger.exception("An exception occurred")
+
+        logger.exception("Health check exception message.")
+
         return Response({
             "status": "ok",
             "message": "Development API is running.",
