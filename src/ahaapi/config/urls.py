@@ -38,6 +38,6 @@ urlpatterns = [
     ),
 
     path("ahaapi/v1/dev/",
-        include("ahaapi.devapi.urls")
+        include("ahaapi.api.devapi.urls")
     ),
 ]

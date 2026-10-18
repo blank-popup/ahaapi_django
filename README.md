@@ -127,7 +127,7 @@ Responsibilities:
 
 Because the Django configuration package is `ahaapi.config`, use fully qualified module paths consistently:
 
--   `DJANGO_SETTINGS_MODULE`: `ahaapi.config.settings.development` or `ahaapi.config.settings.production`
+-   `DJANGO_SETTINGS_MODULE`: `ahaapi.config.settings.specific.development` or `ahaapi.config.settings.specific.production`
 -   `ROOT_URLCONF`: `ahaapi.config.urls`
 -   `WSGI_APPLICATION`: `ahaapi.config.wsgi.application`
 -   `ASGI_APPLICATION`: `ahaapi.config.asgi.application`
@@ -177,7 +177,7 @@ import os
 
 os.environ.setdefault(
     "DJANGO_SETTINGS_MODULE",
-    "ahaapi.config.settings.development",
+    "ahaapi.config.settings.specific.development",
 )
 ```
 
@@ -185,11 +185,11 @@ Set the environment explicitly when needed.
 
 ``` powershell
 # Development
-$env:DJANGO_SETTINGS_MODULE = "ahaapi.config.settings.development"
+$env:DJANGO_SETTINGS_MODULE = "ahaapi.config.settings.specific.development"
 uv run python manage.py runserver
 
 # Production settings selection (deploy with a production-grade WSGI/ASGI server)
-$env:DJANGO_SETTINGS_MODULE = "ahaapi.config.settings.production"
+$env:DJANGO_SETTINGS_MODULE = "ahaapi.config.settings.specific.production"
 ```
 
 The selected module must exist and be importable. Production deployment also needs a WSGI/ASGI server, secure secret management, HTTPS, and appropriate process management. Do not use Django's `runserver` as the production server.

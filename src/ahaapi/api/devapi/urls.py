@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from ahaapi.devapi import views
+from ahaapi.api.devapi import views
 
 app_name = "devapi"
 

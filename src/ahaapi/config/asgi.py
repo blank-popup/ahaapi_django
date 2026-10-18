@@ -13,7 +13,7 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault(
     "DJANGO_SETTINGS_MODULE",
-    "ahaapi.config.settings.development",
+    "ahaapi.config.settings.specific.development",
 )
 
 application = get_asgi_application()

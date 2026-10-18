@@ -16,7 +16,7 @@ from pathlib import Path
 from ahaapi.util.env.environment import load_environment
 from ahaapi.util.logit.logit import setup_sync_logging
 
-settings_module = os.getenv("DJANGO_SETTINGS_MODULE", "ahaapi.config.settings.development")
+settings_module = os.getenv("DJANGO_SETTINGS_MODULE", "ahaapi.config.settings.specific.development")
 environment = settings_module.rsplit('.', 1)[-1]
 load_environment(environment)
 
